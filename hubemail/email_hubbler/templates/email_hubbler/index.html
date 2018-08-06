@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Feedback Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css"> -->
+</head>
+<body>
+    <!-- <h3>{{ fields }}</h3> -->
+    <form action="email_hubbler/ " method="post">
+        {% csrf_token %}
+        {% for f in fields %}
+            <label for={{ f.lbl }}></label>
+            {% if f.type == 'paragraph' %}
+                <textarea name= {{ f.id }}  cols="60" rows="5" placeholder={{ f.placeholder }}></textarea>
+            {% else %}
+                <input type={{ f.type }} name={{ f.id }} placeholder={{ f.placeholder }} > 
+            {% endif %}
+            
+            <br> 
+        {% endfor %}
+        <input type="submit" value="send mail"> 
+                 
+    </form>
+   
+    
+</body>
+</html>
