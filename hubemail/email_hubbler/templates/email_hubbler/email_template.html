@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Mail Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    
+</head>
+<body>
+        <form action="email_hubbler/ " method="post">
+            {% csrf_token %}
+            <br>
+            To<hr>     <input type="email" name="To" id="emailTo">
+            <br>
+            cc       <input type="email" name="cc" id="emailCC">
+            <br>
+            Subject  <input type="text" value="Feedback Ticket #Number" name="subject" id="emailSubject">
+            <br>
+            Email Body 
+            <br>
+            <textarea name="emailBody" id="emailbody" cols="50" rows="30", value="Hello #User,
+            
+            Below is the error"></textarea>
+
+            {% for f in emailBodyTags %}
+                <label for={{ f.lbl }}></label>
+                {% if f.type == 'paragraph' %}
+                    <textarea name= {{ f.id }}  cols="60" rows="5" placeholder={{ f.placeholder }}></textarea>
+                {% else %}
+                    <input type={{ f.type }} name={{ f.id }} placeholder={{ f.placeholder }} > 
+                {% endif %}
+                
+                <br> 
+            {% endfor %}
+            <input type="submit" value="send mail"> 
+                     
+        </form>
+</body>
+</html>

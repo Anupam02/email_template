@@ -31,7 +31,8 @@ def index(request):
                 'id': '5b46029bc20a6b25bbf51e76',
                 'lbl':'Number',
                 'placeholder':'Ticket number'
-            }
+            },
+
         ]
     }
 
@@ -41,8 +42,44 @@ def emailsent(request):
     user_name = request.POST.get('5b46029bc20a6b25bbf51e74')
     feedback = request.POST.get('5b471e70c20a6b5d789f560d')
     ticket_number = request.POST.get('5b46029bc20a6b25bbf51e76')
-    subject = "Feedback Ticket " + str(ticket_number)
-    # message = "<p>Hello <span class='atwho-inserted' data-atwho-at-query='#'><span id='5b46029bc20a6b25bbf51e74' class='customFields'>"+user_name+"</span></span>⁠,</p><p><br></p><p>Greetings from hubbler. It has been privilege to serve you.&nbsp;</p><p>Your below Feedback &nbsp;is received:</p><p><span class='atwho-inserted' data-atwho-at-query='#'><span id='5b471e70c20a6b5d789f560d' class='customFields'>" + feedback + "</span></span>⁠&nbsp;</p><p><br></p><p>Your Ticket Number : <span class='atwho-inserted' data-atwho-at-query='#'><span id='5b46029bc20a6b25bbf51e76' class='customFields'>" + str(ticket_number)+"</span></span>⁠ is raised and will be responded to asap.</p><p><br></p><p>Happy Hubblering!!</p><p>Team Hubbler</p>"
-    msg_html = render_to_string('email_hubbler/email.html',{'user_name':user_name,'feedback':feedback,'ticket_number':ticket_number})
-    send_mail(subject,'Hello there','patel.anupam02@gmail.com',['patel.anupam02@gmail.com'],html_message=msg_html)
-    return HttpResponse('<h3>Email has been sent succesfully.</h3>')
+
+    
+    context = {
+    'subjectTags':
+        [ 
+            {
+                'type':'#Number',
+                'id': '5b46029bc20a6b25bbf51e76',
+                'from':16,
+                'to': 23,
+                'lenght': len(user_name)
+            },
+
+        ],
+     'emailBodyTags' :
+        [
+            {
+                'text':'#single line text',
+                'id' : '5b46029bc20a6b25bbf51e74',
+                'from':119,
+                'to':136,
+                'length': len(user_name)
+            },
+            {
+                'text':'#Paragraph',
+                'id':'5b471e70c20a6b5d789f560d',
+                'from':397,
+                'to':407,
+                'length': len(feedback)
+            },
+            {
+                'text':'#Number',
+                'id':'5b46029bc20a6b25bbf51e76',
+                'from':577,
+                'to':584,
+                'length': len(ticket_number)
+            }
+        ]
+    }
+  
+    return render(request, 'email_hubbler/email_template1.html',context)
