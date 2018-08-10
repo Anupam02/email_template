@@ -73,13 +73,14 @@ input[type=submit]:hover {
 <!-- <p>Resize the browser window to see the effect. When the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other.</p> -->
 
 <div class="container">
-  <form action="email_hubbler/send_mail">
+  <form action="email_hubbler/send_mail", method="POST">
+    {% csrf_token %}
     <div class="row">
       <div class="col-25">
         <label for="to">To</label>
       </div>
       <div class="col-75">
-        <input type="text" id="fname" name="to" placeholder="email to..">
+        <input type="text" id="to" name="to" placeholder="email to..">
       </div>
     </div>
     <div class="row">
@@ -95,7 +96,7 @@ input[type=submit]:hover {
         <label for="from">From</label>
       </div>
       <div class="col-75">
-            <input type="text" id="cc" name="cc" placeholder="email cc..">
+            <input type="text" id="from" name="from" placeholder="email cc..">
         </div>
     </div>
     <div class="row">
@@ -103,7 +104,7 @@ input[type=submit]:hover {
               <label for="subject">Subject</label>
             </div>
             <div class="col-75">
-                  <input type="text" id="subject" name="subject" placeholder="email subject.." value="Feedback Ticket #Number">
+                  <input type="text" id="subject" name="subject" placeholder="email subject.." >
         </div>
     </div>
     <div class="row">
